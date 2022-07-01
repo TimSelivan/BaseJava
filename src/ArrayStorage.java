@@ -5,9 +5,25 @@ public class ArrayStorage {
     Resume[] storage = new Resume[10000];
 
     void clear() {
+        for(int i = 0; i < storage.length; i++) {
+            if(storage[i] != null) {
+                storage[i] = null;
+            } else {
+                break;
+            }
+        }
     }
 
-    void save(Resume r) {
+    void save(Resume addResume) {
+        int count = 0;
+        for(int i = count; i < storage.length; i++) {
+            if(storage[i] != null) {
+                count++;
+            } else {
+                break;
+            }
+        }
+        storage[count] = addResume;
     }
 
     Resume get(String uuid) {
@@ -21,10 +37,19 @@ public class ArrayStorage {
      * @return array, contains only Resumes in storage (without null)
      */
     Resume[] getAll() {
+
         return new Resume[0];
     }
 
     int size() {
-        return 0;
+        int count = 0;
+        for (Resume resume : storage) {
+            if (resume != null) {
+                count++;
+            } else {
+                break;
+            }
+        }
+        return count;
     }
 }
