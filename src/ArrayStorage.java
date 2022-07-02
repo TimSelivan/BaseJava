@@ -2,12 +2,14 @@
  * Array based storage for Resumes
  */
 public class ArrayStorage {
+    private int size = 0;
     Resume[] storage = new Resume[10000];
 
     void clear() {
-        for(int i = 0; i < storage.length; i++) {
+        for(int i = 0; i <= size; i++) {
             if(storage[i] != null) {
                 storage[i] = null;
+                size--;
             } else {
                 break;
             }
@@ -16,7 +18,7 @@ public class ArrayStorage {
 
     void save(Resume newResume) {
         int count = 0;
-        for(int i = count; i < storage.length; i++) {
+        for(int i = count; i < size; i++) {
             if(storage[i] != null) {
                 count++;
             } else {
@@ -24,49 +26,43 @@ public class ArrayStorage {
             }
         }
         storage[count] = newResume;
+        size += 1;
     }
 
     Resume get(String uuid) {
         int count = 0;
-        for (Resume resume : storage) {
-            count++;
-            if (resume.uuid.equals(uuid)) {
+        for (int i = 0; i < size; i++) {
+            if (storage[i].uuid.equals(uuid)) {
                 break;
             }
+            count++;
         }
         return storage[count];
     }
 
     void delete(String uuid) {
         int i = 0;
-        for(i = 0; i < storage.length; i++) {
+        for(i = 0; i < size; i++) {
             if(storage[i].uuid.equals(uuid)) {
                 storage[i] = null;
+                size--;
                 break;
             }
         }
-        System.arraycopy(storage, (i + 1), storage, i, (storage.length - 1 - i));
-        storage[storage.length - 1] = null;
+        System.arraycopy(storage, (i + 1), storage, i, (size - i));
+        storage[size] = null;
     }
     /**
      * @return array, contains only Resumes in storage (without null)
      */
     Resume[] getAll() {
-        int arrayCopySize = size();
-        Resume[] arrayCopy = new Resume[arrayCopySize];
-        System.arraycopy(storage, 0, arrayCopy, 0, arrayCopySize);
+//        int arrayCopySize = size();
+        Resume[] arrayCopy = new Resume[size];
+        System.arraycopy(storage, 0, arrayCopy, 0, size);
         return arrayCopy;
     }
 
     int size() {
-        int count = 0;
-        for (Resume resume : storage) {
-            if (resume != null) {
-                count++;
-            } else {
-                break;
-            }
-        }
-        return count;
+        return size;
     }
 }
