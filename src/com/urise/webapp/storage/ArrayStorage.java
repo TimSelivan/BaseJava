@@ -8,12 +8,23 @@ import java.util.Arrays;
  * Array based storage for Resumes
  */
 public class ArrayStorage {
+    private static final int STORAGE_LIMIT = 10000;
+    private Resume[] storage = new Resume[STORAGE_LIMIT];
     private int size = 0;
-    private Resume[] storage = new Resume[10000];
 
     public void clear() {
         Arrays.fill(storage, 0, size, null);
         size = 0;
+    }
+
+    public void update(Resume resume) {
+        int index = getIndex(resume.getUuid());
+        if (index == -1) {
+            System.out.println("Resume " + resume.getUuid() + " is not exist");
+        } else {
+            storage[index] = resume;
+            System.out.println("Resume is updated");
+        }
     }
 
     public void save(Resume newResume) {
@@ -24,16 +35,6 @@ public class ArrayStorage {
         } else {
             storage[size] = newResume;
             size++;
-        }
-    }
-
-    public void update(Resume resume) {
-        int index = getIndex(resume.getUuid());
-        if (index == -1) {
-            System.out.println("Resume " + resume.getUuid() + " is not exist");
-        } else {
-            storage[index] = resume;
-            System.out.println("Resume is updated");
         }
     }
 
@@ -61,8 +62,7 @@ public class ArrayStorage {
      * @return array, contains only Resumes in storage (without null)
      */
     public Resume[] getAll() {
-        Resume[] arrayCopy = Arrays.copyOf(storage, size);
-        return arrayCopy;
+        return Arrays.copyOf(storage, size);
     }
 
     public int size() {
