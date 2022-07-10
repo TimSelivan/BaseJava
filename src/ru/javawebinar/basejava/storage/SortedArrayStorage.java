@@ -4,29 +4,19 @@ import ru.javawebinar.basejava.model.Resume;
 
 import java.util.Arrays;
 
-/**
- * Array based storage for Resumes
- */
 public class SortedArrayStorage extends AbstractArrayStorage {
 
-    public void clear() {
-
+    protected void fillDeletedElement(int index) {
+        int numMoved = size - index - 1;
+        if(numMoved > 0) {
+            System.arraycopy(storage, index + 1, storage, index, numMoved);
+        }
     }
 
-    public void update(Resume resume) {
-
-    }
-
-    public void save(Resume newResume) {
-
-    }
-
-    public void delete(String uuid) {
-
-    }
-
-    public Resume[] getAll() {
-        return Arrays.copyOfRange(storage, 0, size);
+    protected void insertElement(Resume resume, int index) {
+        int insertIdx = -index - 1;
+        System.arraycopy(storage, insertIdx, storage, insertIdx + 1, size - insertIdx);
+        storage[insertIdx] = resume;
     }
 
     protected int getIndex(String uuid) {
