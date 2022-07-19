@@ -7,7 +7,6 @@ import ru.javawebinar.basejava.storage.Storage;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-
 /**
  * Test for ru.javawebinar.basejava.storage.ArrayStorage
  */
