@@ -4,12 +4,14 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
-/**
- * gkislin
- * 14.07.2016
- */
 public class ListSection extends Section {
-    private final List<String> items;
+
+    private static final long serialVersionUID = 1L;
+
+    private List<String> items;
+
+    public ListSection() {
+    }
 
     public ListSection(String... items) {
         this(Arrays.asList(items));
